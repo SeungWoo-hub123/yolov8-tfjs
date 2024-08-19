@@ -4,6 +4,7 @@ import labels from "./labels.json";
 
 const numClass = labels.length;
 
+
 /**
  * Preprocess image / frame before forwarded into the model
  * @param {HTMLVideoElement|HTMLImageElement} source

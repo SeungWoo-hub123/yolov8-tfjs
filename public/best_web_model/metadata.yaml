@@ -1,0 +1,18 @@
+description: Ultralytics best model trained on /content/datasets/icecream-images-3/data.yaml
+author: Ultralytics
+date: '2024-05-29T16:02:11.672443'
+version: 8.2.25
+license: AGPL-3.0 License (https://ultralytics.com/license)
+docs: https://docs.ultralytics.com
+stride: 32
+task: detect
+batch: 1
+imgsz:
+- 640
+- 640
+names:
+  0: boungssa
+  1: melona
+  2: ppappico
+  3: seollame
+  4: worldcone

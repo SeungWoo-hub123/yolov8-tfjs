@@ -8,6 +8,10 @@ import labels from "./labels.json";
  * @param {Array} classes_data class array
  * @param {Array[Number]} ratios boxes ratio [xRatio, yRatio]
  */
+
+  // 종류 배열 저장(전역변수)
+let klass_array = [];
+
 export const renderBoxes = (canvasRef, boxes_data, scores_data, classes_data, ratios) => {
   const ctx = canvasRef.getContext("2d");
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clean canvas
@@ -22,11 +26,15 @@ export const renderBoxes = (canvasRef, boxes_data, scores_data, classes_data, ra
   ctx.font = font;
   ctx.textBaseline = "top";
 
+  klass_array = []; 
   for (let i = 0; i < scores_data.length; ++i) {
     // filter based on class threshold
     const klass = labels[classes_data[i]];
     const color = colors.get(classes_data[i]);
     const score = (scores_data[i] * 100).toFixed(1);
+    
+    // 종류 순서대로 저장
+    klass_array[i] = klass;
 
     let [y1, x1, y2, x2] = boxes_data.slice(i * 4, (i + 1) * 4);
     x1 *= ratios[0];
@@ -62,6 +70,30 @@ export const renderBoxes = (canvasRef, boxes_data, scores_data, classes_data, ra
     ctx.fillText(klass + " - " + score + "%", x1 - 1, yText < 0 ? 0 : yText);
   }
 };
+
+  // 종류별 개수 계산
+  export const calculate  = () => { 
+    let klass_length = klass_array.length;
+    let cal_result=[0,0,0,0,0];
+    for(let i =0; i < klass_length; ++i){
+      if(klass_array[i]=='boungssa'){
+        ++cal_result[0];
+      }
+      else if(klass_array[i]=='melona'){
+        ++cal_result[1];
+      }
+      else if(klass_array[i]=='ppappico'){
+        ++cal_result[2];
+      }
+      else if(klass_array[i]=='seollame'){
+        ++cal_result[3];
+      }
+      else if(klass_array[i]=='worldcone'){
+        ++cal_result[4];
+      }
+    }
+    return cal_result;
+  }
 
 class Colors {
   // ultralytics color palette https://ultralytics.com/
